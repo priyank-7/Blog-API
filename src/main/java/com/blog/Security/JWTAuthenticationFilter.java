@@ -57,13 +57,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             System.out.println("Token does not began with Bearer ");
         }
 
-        // once we get the token, now we are going to validate token
+        // once get the token, now validate token
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userName);
             if (this.tokenHelper.validateToken(token,userDetails)){
-
-                // sahi chal raha hain
-                // Authentication karna hain
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
